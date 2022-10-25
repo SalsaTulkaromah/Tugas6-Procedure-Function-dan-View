@@ -1,0 +1,31 @@
+//No. 1
+/* Procedure menampilkan jumlah like yang ada pada ig_username aa.umbara */ 
+DELIMITER //
+CREATE OR REPLACE PROCEDURE jumlah_like()
+BEGIN
+SELECT SUM(like_count) FROM tbl_scraping WHERE ig_username = "aa.umbara";
+END //
+DELIMITER ;
+
+/*pemanggilan
+CALL jumlah_like();
+
+//No. 2
+DELIMITER //
+CREATE OR REPLACE FUNCTION like_terbanyak (likee INTEGER)
+RETURNS INTEGER
+BEGIN
+SELECT MAX(like_count) INTO likee FROM tbl_scraping;
+RETURN likee;
+END;
+//
+
+SELECT ig_username, like_terbanyak(like_count) FROM tbl_scraping
+
+//No. 3
+CREATE VIEW postingan_2020 AS
+SELECT ig_username, url, like_count, comment_count, taken_at
+FROM tbl_scraping
+WHERE YEAR(taken_at) = 2020
+
+SELECT * FROM postingan_2020 GROUP BY ig_username
